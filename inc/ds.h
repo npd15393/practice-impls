@@ -321,6 +321,78 @@ class graph{
     }
 };
 
+/**
+ * Templated Least Recently Used cache.
+ *
+ * int get(int key) Return the value of the key if the key exists, otherwise return -1
+ *
+ * void put(int key, int value) Update the value of the key if the key exists. 
+ * Otherwise, add the key-value pair to the cache. 
+ * If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+ * 
+ * @param int size Capacity of cache.
+ */
+template <class T>
+class LRU_cache {
+  const int size;
+  int current_size=0;
+  map <int,ListNode<T>*> lookup_hash;
+  ListNode<T> head;
+  ListNode<T> tail;
+
+  public:
+    explicit LRU_cache(int sz): size(sz){}
+
+    int get(int key){
+      if(lookup_hash.find(key)==lookup_hash.end())
+          return -1;
+      ListNode<T>* n=lookup_hash[key];
+      ListNode<T>* prev=n.prev;
+      ListNode<T>* nxt=n.next;
+      if (prev)
+          prev->next=nxt;
+      if (nxt)
+          nxt->prev=prev;
+
+      if (tail == null)
+        tail = n;
+      else if (tail == n && n->prev)
+        tail = n->prev;
+      
+      n->prev=null;
+      n->next=head;
+      head->prev=n;
+      head=n;
+      return lookup_hash[key];
+    }
+
+    void put(int key,T val){
+      // if key exists, update value
+      if(lookup_hash.find(key)!=lookup_hash.end())
+      {
+        ListNode<T>* n=lookup_hash[key];
+        n->val = val;
+        return;
+      }
+
+      ListNode<T>* n=new ListNode<T>(val);
+      // update head
+      n->next = head;
+      head->prev  = n;
+      head = n;
+      lookup_hash[key] = n;
+      
+      if(current_size==size){
+        //update tail
+        ListNode<T>* t = tail; 
+        tail = tail->prev;
+        delete t;
+      }
+
+      current_size++;
+    }
+};
+
 
 /// Utils
 
