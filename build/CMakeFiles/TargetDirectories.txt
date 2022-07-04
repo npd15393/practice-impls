@@ -1,3 +1,0 @@
-/home/spearfish/practice-impls/build/CMakeFiles/rebuild_cache.dir
-/home/spearfish/practice-impls/build/CMakeFiles/edit_cache.dir
-/home/spearfish/practice-impls/build/CMakeFiles/main.dir
