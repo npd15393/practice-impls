@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/algorithms.h
+ds.h
+../inc/ds.h
+
+../inc/ds.h
+iostream
+-
+vector
+-
+map
+-
+limits
+-
+
+/home/spearfish/practice-impls/main.cpp
+algorithms.h
+/home/spearfish/practice-impls/algorithms.h
+ds.h
+/home/spearfish/practice-impls/ds.h
+

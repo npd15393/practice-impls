@@ -20,6 +20,14 @@ struct ListNode{
 };
 
 template<class T>
+struct TreeNode{
+  T val;
+  TreeNode<T>* left;
+  TreeNode<T>* right;
+  TreeNode(T f):val(f){}
+};
+
+template<class T>
 ostream& operator<< (std::ostream &out, const ListNode<T>& data) {
     out << data.val;
     return out;
@@ -52,7 +60,7 @@ template <class T>
 class List{
   public:
     ListNode<T>* head;
-    void pushback(T val){
+    virtual void pushback(T val){
       ListNode<T>* m=new ListNode<T>(val);
       ListNode<T>* g=head;
       if(isEmpty()){
@@ -67,7 +75,7 @@ class List{
       // tail=m;
     }
 
-    void pushfront(T val){
+    virtual void pushfront(T val){
       ListNode<T>* m=new ListNode<T>(val);
       ListNode<T>* g=head;
       if(isEmpty()){
@@ -112,9 +120,11 @@ class List{
       if(isEmpty())
         return false;
       ListNode<T>* g=head;
-      while(g->next)
+      while(g){
         if(g->val==rhs)
           return true;
+        g=g->next;
+      }
       return false;
     }
 
@@ -200,7 +210,7 @@ template<class T>
 class stack:public List<T>{
   public:
     void push(T val){
-      pushfront(val);
+      this->pushfront(val);
     }
 
     T* pop(){
@@ -218,7 +228,7 @@ template<class T>
 class queue:public BiList<T>{
   public:
     void enque(T val){
-      pushfront(val);
+      this->pushfront(val);
     }
 
     T* deque(){
@@ -354,12 +364,12 @@ class LRU_cache {
       if (nxt)
           nxt->prev=prev;
 
-      if (tail == null)
+      if (!tail)
         tail = n;
       else if (tail == n && n->prev)
         tail = n->prev;
       
-      n->prev=null;
+      n->prev=nullptr;
       n->next=head;
       head->prev=n;
       head=n;
@@ -399,6 +409,11 @@ class LRU_cache {
 template<class T>
 void printNode(GraphNode<T>* gn){
   std::cout <<gn->id<<":"<< gn->val<<'\n';
+}
+
+template<class T>
+TreeNode<T>* vector2tree(vector<T*> v){
+  //tbd 
 }
 
 #endif
